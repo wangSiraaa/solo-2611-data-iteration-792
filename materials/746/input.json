@@ -1,0 +1,129 @@
+{
+  "plan": {
+    "plan_id": "p1",
+    "inputs": [
+      "a",
+      "b"
+    ],
+    "nodes": [
+      {
+        "node_id": "u",
+        "terms": [
+          {
+            "ref": "a",
+            "coefficient": "1"
+          },
+          {
+            "ref": "b",
+            "coefficient": "1"
+          }
+        ],
+        "constant": "0"
+      },
+      {
+        "node_id": "z",
+        "terms": [
+          {
+            "ref": "u",
+            "coefficient": "1"
+          },
+          {
+            "ref": "b",
+            "coefficient": "-1"
+          }
+        ],
+        "constant": "0"
+      },
+      {
+        "node_id": "w",
+        "terms": [
+          {
+            "ref": "u",
+            "coefficient": "2"
+          },
+          {
+            "ref": "a",
+            "coefficient": "-1"
+          }
+        ],
+        "constant": "0"
+      }
+    ],
+    "outputs": [
+      "z",
+      "w"
+    ]
+  },
+  "facts": [
+    {
+      "record_id": "r1",
+      "revision": 1,
+      "group_id": "g",
+      "inputs": {
+        "a": "3",
+        "b": "4"
+      }
+    },
+    {
+      "record_id": "r2",
+      "revision": 1,
+      "group_id": "g",
+      "inputs": {
+        "a": "1",
+        "b": "2"
+      }
+    }
+  ],
+  "operations": [
+    {
+      "op": "build",
+      "plan_id": "p1",
+      "result_id": "initial"
+    },
+    {
+      "op": "correct_fact",
+      "fact": {
+        "record_id": "r1",
+        "revision": 2,
+        "group_id": "g",
+        "inputs": {
+          "a": "3",
+          "b": "10"
+        }
+      }
+    },
+    {
+      "op": "build",
+      "plan_id": "p1",
+      "result_id": "fact-corrected"
+    },
+    {
+      "op": "publish_plan",
+      "plan_id": "p2",
+      "based_on": "p1",
+      "replace_node": {
+        "node_id": "z",
+        "terms": [
+          {
+            "ref": "u",
+            "coefficient": "1"
+          },
+          {
+            "ref": "b",
+            "coefficient": "-2"
+          }
+        ],
+        "constant": "0"
+      }
+    },
+    {
+      "op": "build",
+      "plan_id": "p2",
+      "result_id": "plan-corrected"
+    },
+    {
+      "op": "read_result",
+      "result_id": "initial"
+    }
+  ]
+}
